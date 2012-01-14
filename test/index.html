@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/jasmine-1.1.0/jasmine.css" />
+    <script type="text/javascript" src="lib/jasmine-1.1.0/jasmine.js"></script>
+    <script type="text/javascript" src="lib/jasmine-1.1.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="../src/selector3.js"></script>
+  </head>
+  <body>
+    <div id="content">
+      <ul class="articles">
+        <li class="article">1</li>
+        <li class="article">2</li>
+        <li class="article">3</li>
+        <li class="article">4</li>
+        <li class="article">5</li>
+      </ul>
+      <ul class="articles">
+        <li class="article">1</li>
+        <li class="article">2</li>
+        <li class="article">3</li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      describe('selector2', function () {
+        
+        describe('Document', function () {
+          it('should find an element from its id', function () {
+            expect(document.find('#content')).toEqual(document.getElementById('content'));
+          });
+          
+          it('should find exactly one element having a given id', function () {
+            expect(document.findAll('#content').length).toEqual(1);
+          });
+        });
+        
+        describe('Element', function () {
+          var content = document.find('#content');
+          
+          it('should find subnodes', function () {
+            expect(content.find('.articles').findAll('.article').length).toEqual(5);
+          });
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      (function () {
+        jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+        jasmine.getEnv().execute();
+      })();
+    </script>
+  </body>
+</html>
